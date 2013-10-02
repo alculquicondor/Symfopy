@@ -5,18 +5,18 @@ Microframework for Python based on some ideas of Symfony
 
 ## Minimal Apache Configuration
 
-  <VirtualHost *:80>
-    ServerName symfopy.dev
-  	DocumentRoot /path/to/project/
+    <VirtualHost *:80>
+      ServerName symfopy.dev
+      DocumentRoot /path/to/project/
 
-  	<Directory "/path/to/project/">
-  		Options MultiViews FollowSymLinks ExecCGI
-		  AllowOverride All
-		  MultiviewsMatch Handlers
-		  Order allow,deny
-		  Allow from all
-	  </Directory>
-  </VirtualHost>
+      <Directory "/path/to/project/">
+        Options MultiViews FollowSymLinks ExecCGI
+        AllowOverride All
+        MultiviewsMatch Handlers
+        Order allow,deny
+        Allow from all
+      </Directory>
+    </VirtualHost>
 
 ## TODO
 - Complete the Request and Response objects
