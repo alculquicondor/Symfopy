@@ -5,8 +5,8 @@ Microframework for Python based on some ideas of Symfony
 
 ## Minimal Apache Configuration
 
- <VirtualHost *:80>
-  	ServerName symfopy.dev
+  <VirtualHost *:80>
+    ServerName symfopy.dev
   	DocumentRoot /path/to/project/
 
   	<Directory "/path/to/project/">
@@ -16,7 +16,7 @@ Microframework for Python based on some ideas of Symfony
 		  Order allow,deny
 		  Allow from all
 	  </Directory>
- </VirtualHost>
+  </VirtualHost>
 
 ## TODO
 - Complete the Request and Response objects
