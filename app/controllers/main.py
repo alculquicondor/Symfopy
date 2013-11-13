@@ -4,13 +4,15 @@
 
 from Symfopy.Component.HttpFoundation import Request, Response
 from Symfopy.Component.Routing import rest_controller
+from Symfopy.Component.Templating import template
 
-def main(request):
-  return Response('<h1>Hello World</h1>', 200, {
-    'Content-Type': 'text/html'})
+@template('main.html')
+def main(request, template):
+    return template.render(title = u'Hello World')
 
 def greet(request, name = 'Aldo'):
-  return '<h1>Hello ' + name + '</h1>'
+    return Response('<h1>Hello ' + name + '</h1>', 200,
+            {'Content-Type' : 'text/html'})
 
 
 @rest_controller

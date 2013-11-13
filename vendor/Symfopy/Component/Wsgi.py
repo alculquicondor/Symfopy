@@ -1,13 +1,17 @@
 # -*- coding: utf-8 *-
 from Symfopy.Component.HttpFoundation import Request, Response
 from Symfopy.Component.Routing import Router
+from Symfopy.Component.Templating import has_template
+from jinja2 import Environment, FileSystemLoader
 import sys
 import traceback
 
 
 class WsgiApp(object):
 
-    def __init__(self, routes, debug = False):
+    def __init__(self, routes, views_path = None, debug = False):
+        self.template_env = Environment(loader=FileSystemLoader(views_path))\
+                if views_path else None
         self.router = Router(routes)
         self.debug = debug
 
@@ -26,7 +30,11 @@ class WsgiApp(object):
                     if isinstance(controller, basestring):
                         controller = self.router.\
                                 load_controller(controller)
-                    response = controller(request, **urlvars)
+                    template = has_template(controller, self.template_env)
+                    if template:
+                        response = controller(request, template, **urlvars)
+                    else:
+                        response = controller(request, **urlvars)
                     if isinstance(response, (basestring, list)):
                         response = Response(response)
                 except Exception as e:

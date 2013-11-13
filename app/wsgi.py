@@ -20,9 +20,11 @@ routes = {
       },
     'hello' : {
       'route' : '/hello/',
-      'controller' : 'main:hello'
+      'controller' : 'main:Hello'
       }
     }
+
+views_path = __DIR__ + '/views'
         
-application = WsgiApp(routes, debug = True)
+application = WsgiApp(routes, views_path, debug = True)
 
