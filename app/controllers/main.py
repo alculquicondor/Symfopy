@@ -1,4 +1,4 @@
-# -*- cmding: utf-8 -*-
+# -*- coding: utf-8 *-
 
 #sample controller
 
@@ -13,6 +13,7 @@ def greet(request, name = 'Aldo'):
   return '<h1>Hello ' + name + '</h1>'
 
 
+@rest_controller
 class Hello(object):
     def __init__(self, request):
         self.request = request
@@ -26,6 +27,4 @@ class Hello(object):
     def post(self):
         return 'Hello %s!' % self.request.request['name']
 
-
-hello = rest_controller(Hello)
 
