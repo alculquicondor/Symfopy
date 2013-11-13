@@ -70,12 +70,34 @@ def rest_controller(cls):
             if isinstance(action, basestring):
                 urlvars.pop('action')
             action = request.get_method().lower()
-        instance = cls(request, **urlvars)
+        instance = cls(**urlvars)
         try:
             method = getattr(instance, action)
         except Exception:
             return Router.notfound('No action ' + action)
-        return method()
+        return method(request)
+    return replacement
+
+def rest_controller_template(cls):
+    def replacement(request, template = None, **urlvars):
+        action = urlvars.get('action', None)
+        if action:
+            action += '_' + request.get_method().lower()
+            urlvars.pop('action')
+        else:
+            if isinstance(action, basestring):
+                urlvars.pop('action')
+            action = request.get_method().lower()
+        instance = cls(**urlvars)
+        try:
+            method = getattr(instance, action)
+        except Exception:
+            return Router.notfound('No action ' + action)
+        if template:
+            return method(request, template)
+        else:
+            return method(request)
+    replacement.member_func = cls
     return replacement
 
 

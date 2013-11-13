@@ -30,7 +30,7 @@ class WsgiApp(object):
                     if isinstance(controller, basestring):
                         controller = self.router.\
                                 load_controller(controller)
-                    template = has_template(controller, self.template_env)
+                    template = has_template(controller, self.template_env, request, **urlvars)
                     if template:
                         response = controller(request, template, **urlvars)
                     else:

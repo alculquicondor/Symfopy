@@ -3,8 +3,8 @@
 #sample controller
 
 from Symfopy.Component.HttpFoundation import Request, Response
-from Symfopy.Component.Routing import rest_controller
-from Symfopy.Component.Templating import template
+from Symfopy.Component.Routing import rest_controller_template
+from Symfopy.Component.Templating import template, template_rest
 
 @template('main.html')
 def main(request, template):
@@ -15,18 +15,17 @@ def greet(request, name = 'Aldo'):
             {'Content-Type' : 'text/html'})
 
 
-@rest_controller
+@rest_controller_template
 class Hello(object):
-    def __init__(self, request):
-        self.request = request
 
-    def get(self):
+    def get(self, request):
         return '''<form method="POST">
         You're name: <input type="text" name="name">
         <input type="submit">
         </form>'''
 
-    def post(self):
-        return 'Hello %s!' % self.request.request['name']
+    @template_rest('main.html')
+    def post(self, request, template):
+        return template.render(title = request.request['name'])
 
 
