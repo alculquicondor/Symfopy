@@ -26,6 +26,6 @@ class Hello(object):
 
     @template_rest('main.html')
     def post(self, request, template):
-        return template.render(title = request.request['name'])
+        return template.render(title = 'Hello ' + request.request['name'])
 
 
